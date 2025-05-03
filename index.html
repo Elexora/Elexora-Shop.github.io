@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elexora-Trending Products & Fashion Deals</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+  * {
+      text-decoration: none;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #e3cff5cc;
+  }
+  .navbar {
+      background-color: aqua;
+      font-family: Calibri;
+      padding: 0 15px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .logo img {
+      border-radius: 20px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    gap: 10px;
+
+  }
+  li {
+      list-style: none;
+      display: inline-block;
+      margin-right: 25px;
+  }
+  li a {
+      color: black;
+      font-size: 15px;
+      font-weight: bold;
+  }
+  .navbar ul {
+      display: flex;
+      align-items: center;
+  }
+  h3 {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin: 15px 0;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+  .bottom-navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: aqua;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      padding: 5px 0;
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+  .bottom-navbar a {
+      color: black;
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px 0;
+  }
+  .bottom-navbar i {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+.nav-item {
+  text-align: center;
+  color: #555;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.nav-item i {
+  display: block;
+  font-size: 20px;
+}
+
+.nav-item.active {
+  color: #007bff;
+}
+
+/* --- Search Bar with Icon --- */
+.search-bar {
+    text-align: center;
+    margin: 15px auto; /* Center the bar */
+    width: 90%; /* Responsive width */
+    max-width: 600px; /* Max width */
+}
+.search-container {
+    position: relative; /* Needed for absolute positioning icon */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align items */
+    border: 2px solid aqua;
+    border-radius: 5px;
+    background-color: #fff; /* Optional: background for container */
+    overflow: hidden; /* Keep icon contained */
+}
+.search-container input {
+    flex-grow: 1; /* Input takes available space */
+    padding: 10px 15px; /* Adjust padding */
+    border: none; /* Remove default input border */
+    border-radius: 0; /* Remove default radius if needed */
+    font-size: 16px;
+    outline: none; /* Remove focus outline */
+}
+.search-icon {
+    padding: 0 12px; /* Space around the icon */
+    color: #555; /* Icon color */
+    font-size: 18px; /* Icon size */
+    cursor: default; /* Indicate it's not clickable */
+}
+/* --- End Search Bar with Icon --- */
+
+.slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .slider {
+    display: flex;
+    height: 400px; /* Default height */
+    scroll-snap-type: x mandatory;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap; /* Prevent wrapping inside slider */
+  }
+  .slider img {
+      flex: 0 0 100%; /* Ensure each image takes full width */
+      width: 100%; /* Explicit width */
+      height: 100%; /* Take full height of slider container */
+      object-fit: cover; /* Cover the area, might crop */
+      scroll-snap-align: start;
+  }
+  /* Hide scrollbar */
+  ::-webkit-scrollbar {
+      display:none;
+  }
+    /* Slider Dots */
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; /* Space above dots */
+  position: absolute; /* Position dots over the slider */
+  bottom: 10px; /* Position dots near the bottom */
+  left: 50%;
+  transform: translateX(-50%); /* Center the dots */
+  z-index: 10; /* Ensure dots are above slider images */
+}
+.dots span {
+  height: 10px;
+  width: 10px;
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Slight border */
+  border-radius: 50%;
+  margin: 0 5px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  cursor: pointer; /* Indicate they are clickable (though functionality isn't added here) */
+}
+.dots span.active {
+  background-color: #333; /* Active dot color */
+}
+
+  .top-products {
+      margin-top: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+  }
+  .product-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      width: 250px;
+  }
+  .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+  }
+  .price {
+      color: green;
+      font-weight: bold;
+      margin: 10px 0;
+  }
+  .buy-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+      display: inline-block;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+      .top-products {
+          margin-top: 20px;
+          flex-direction: column;
+          align-items: center;
+      }
+      .product-card {
+          width: 90%;
+          margin-bottom: 20px;
+      }
+      .slider {
+          height: 200px;
+          
+      }
+      .slider img {
+          height: 200px;
+          object-fit: cover;
+      }
+  }
+  .more-buy-btn {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+html {
+  scroll-behavior: smooth;
+}
+.spinner {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top: 4px solid aqua;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  </style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <img src="WhatsApp Image 2025-04-19 at 01.52.48_4c4de661.jpg" alt="logo" style="height: 30px;"><span>Elexora</span>
+
+</div>
+
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="help.html">E-Help</a></li>
+    </ul>
+</div>
+
+</header>
+
+<!-- Updated Search Bar Structure -->
+<div class="search-bar">
+  <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search products...">
+      <i class="fas fa-search search-icon"></i>
+  </div>
+</div>
+
+<div class="slider-wrapper" id="sliderContainer">
+  <div class="slider" id="slider">
+      <!-- Spinner initially -->
+      <div class="spinner" id="sliderSpinner"></div>
+  </div>
+  <div class="dots" id="sliderDots"></div>
+</div>
+
+
+<h3> TOP FASHION </h3>
+<div class="top-products" id="productList"> <div class="spinner" id="productSpinner"></div> </div>
+
+<h4 style="text-align:center; margin: 30px 0 10px; font-size: 20px;">MORE ITEM</h4>
+<div class="top-products" id="moreItemList"> <div class="spinner" id="moreSpinner"></div> </div>
+
+
+<div class="bottom-navbar">
+
+    <a href="#productList" class="nav-item">
+      <i class="fas fa-tshirt"></i>
+      <span style="font-size: 12px;">Fashion</span>
+    </a>
+
+    <a href="#moreItemList" class="nav-item">
+      <i class="fas fa-box-open"></i>
+      <span style="font-size: 12px;">Product</span>
+    </a>
+
+    <a href="" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span style="font-size: 12px;">Home</span>
+    </a>
+
+    <a href="https://www.facebook.com/share/14cmPwWTKo/" target="_blank">
+      <i class="fab fa-facebook-f"></i>
+      <span style="font-size: 12px;">Facebook</span>
+    </a>
+
+    <a href="https://www.instagram.com/elexoraa?igsh=MWk0dmo5aTZheHk5Zw==" target="_blank">
+      <i class="fab fa-instagram"></i>
+      <span style="font-size: 12px;">Instagram</span>
+    </a>
+
+</div>
+
+
+
+
+<script>
+
+
+const sheetURL = "https://script.google.com/macros/s/AKfycbzCr1lAkFDqVCDLP73041ZuFBu7NKhcqiH9BjTwX_tJMee0TpcTeG1Lz-fZtC__k7H0/exec";
+
+async function fetchProducts() {
+    const res = await fetch(sheetURL);
+    const products = await res.json();
+    window.allProducts = products;
+    displayProducts(products);
+}
+
+function displayProducts(products) {
+    const productList = document.getElementById('productList');
+    productList.innerHTML = "";
+
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${product.image}" alt="Product Image">
+            <h3>${product.name}</h3>
+            <p class="price">${product.price}</p>
+            <a href="${product.link}" target="_blank" class="buy-btn">Buy Now</a>
+        `;
+        productList.appendChild(card);
+    });
+}
+
+// ---- अपडेटेड सर्च इवेंट लिस्नर ---- START ----
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const searchText = e.target.value.toLowerCase().trim(); // सर्च टेक्स्ट लें और आगे-पीछे के स्पेस हटा दें
+    const sliderContainer = document.getElementById('sliderContainer'); // स्लाइडर रैपर को चुनें
+
+    // ----- स्लाइडर को छिपाने/दिखाने का लॉजिक -----
+    if (searchText.length > 0) {
+        // अगर सर्च टेक्स्ट है, तो स्लाइडर छिपाएं
+        if (sliderContainer) {
+            sliderContainer.style.display = 'none';
+        }
+    } else {
+        // अगर सर्च टेक्स्ट नहीं है (खाली है), तो स्लाइडर दिखाएं
+        if (sliderContainer) {
+            sliderContainer.style.display = 'block'; // या 'relative' अगर मूल display वैल्यू वह थी
+        }
+    }
+    // ----- स्लाइडर लॉजिक खत्म -----
+
+    // ----- प्रोडक्ट फ़िल्टरिंग (यह पहले जैसा ही है) -----
+    // Filter TOP FASHION products
+    const productsToFilter = window.allProducts || []; // अगर डेटा नहीं है तो खाली ऐरे इस्तेमाल करें
+    const filteredProducts = productsToFilter.filter(product =>
+        product.name.toLowerCase().includes(searchText)
+    );
+    displayProducts(filteredProducts); // TOP FASHION डिस्प्ले अपडेट करें
+
+    // Filter MORE ITEM products
+    const moreItemsToFilter = window.allMoreItems || []; // अगर डेटा नहीं है तो खाली ऐरे इस्तेमाल करें
+    const filteredMoreItems = moreItemsToFilter.filter(item =>
+        item.name.toLowerCase().includes(searchText)
+    );
+    displayMoreItems(filteredMoreItems); // MORE ITEM डिस्प्ले अपडेट करें
+    // ----- प्रोडक्ट फ़िल्टरिंग खत्म -----
+});
+// ---- अपडेटेड सर्च इवेंट लिस्नर ---- END ----
+
+fetchProducts();
+
+// Slider images fetch
+const sliderSheetURL = "https://script.google.com/macros/s/AKfycbyuNA_cnAQCQL40kE8eZl8vCByzXeN758j_GJJT41UIE9LDKcu8Qz57DOfrWKeUshRppw/exec";
+
+async function fetchSliderImages() {
+    const res = await fetch(sliderSheetURL);
+    const images = await res.json();
+    displaySliderImages(images);
+}
+
+function displaySliderImages(images) {
+  const slider = document.getElementById('slider');
+  const dots = document.getElementById('sliderDots');
+  slider.innerHTML = "";
+  dots.innerHTML = "";
+
+  images.forEach((imgData, index) => {
+    const img = document.createElement('img');
+    img.src = imgData.image;
+    slider.appendChild(img);
+
+    const dot = document.createElement('span');
+    if (index === 0) dot.classList.add('active');
+    dots.appendChild(dot);
+  });
+
+  slider.addEventListener('scroll', () => {
+    const scrollLeft = slider.scrollLeft;
+    const width = slider.clientWidth;
+    const index = Math.round(scrollLeft / width);
+    const allDots = dots.querySelectorAll('span');
+    allDots.forEach(dot => dot.classList.remove('active'));
+    if (allDots[index]) allDots[index].classList.add('active');
+  });
+
+  // Auto scroll every 3 seconds
+  let currentIndex = 0;
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    slider.scrollTo({
+      left: slider.clientWidth * currentIndex,
+      behavior: "smooth"
+    });
+
+    const allDots = dots.querySelectorAll('span');
+    allDots.forEach(dot => dot.classList.remove('active'));
+    if (allDots[currentIndex]) allDots[currentIndex].classList.add('active');
+  }, 3000);
+}
+
+fetchSliderImages();
+
+const moreSheetURL = "https://script.google.com/macros/s/AKfycbwh5E7kuOFprzSf1f908eOLlun7VIa4GsryUQCPwVlglL4Bcp-hlITwUZLEJgW1VM6M/exec"; // Replace with your Sheet's script URL
+
+async function fetchMoreItems() {
+    const res = await fetch(moreSheetURL);
+    const items = await res.json();
+    window.allMoreItems = items;
+    displayMoreItems(items);
+}
+
+function displayMoreItems(items) {
+    const moreList = document.getElementById('moreItemList');
+    moreList.innerHTML = "";
+
+    items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${item.image}" alt="More Item Image">
+            <h3>${item.name}</h3>
+            <p class="price">${item.price}</p>
+            <a href="${item.link}" target="_blank" class="more-buy-btn">Buy Now</a>
+        `;
+        moreList.appendChild(card);
+    });
+}
+
+fetchMoreItems();
+
+  const navItems = document.querySelectorAll('.nav-item');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Sabhi items se 'active' class hatao
+      navItems.forEach(nav => nav.classList.remove('active'));
+      // Jis par click hua usme 'active' class lagao
+      item.classList.add('active');
+    });
+  });
+
+  function displayProducts(products) {
+    const spinner = document.getElementById('productSpinner');
+    productList.innerHTML = ""; // Clear products
+    if (spinner) spinner.remove(); // Hide spinner
+
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${product.image}" alt="Product Image">
+            <h3>${product.name}</h3>
+            <p class="price">${product.price}</p>
+            <a href="${product.link}" target="_blank" class="buy-btn">Buy Now</a>
+        `;
+        productList.appendChild(card);
+    });
+}
+
+
+function displayMoreItems(items) {
+    const moreList = document.getElementById('moreItemList');
+    const spinner = document.getElementById('moreSpinner');
+    moreList.innerHTML = "";
+    if (spinner) spinner.remove(); // Hide spinner
+
+    items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${item.image}" alt="More Item Image">
+            <h3>${item.name}</h3>
+            <p class="price">${item.price}</p>
+            <a href="${item.link}" target="_blank" class="more-buy-btn">Buy Now</a>
+        `;
+        moreList.appendChild(card);
+    });
+}
+
+// --- कीबोर्ड छिपाने के लिए कोड --- START ---
+
+const searchInputForKeyboard = document.getElementById('searchInput');
+
+// सुनिश्चित करें कि searchInput तत्व मौजूद है
+if (searchInputForKeyboard) {
+    // 'keydown' इवेंट लिस्नर जोड़ें
+    searchInputForKeyboard.addEventListener('keydown', function(event) {
+        // जांचें कि क्या दबाई गई कुंजी 'Enter' है
+        // event.key === 'Enter' आधुनिक तरीका है
+        // event.keyCode === 13 पुराने ब्राउज़रों के लिए है
+        if (event.key === 'Enter' || event.keyCode === 13) {
+
+            // (ज़रूरी) डिफ़ॉल्ट एंटर व्यवहार को रोकें (जैसे फॉर्म सबमिट करना, अगर होता तो)
+            event.preventDefault();
+
+            // (मुख्य भाग) इनपुट फ़ील्ड से फ़ोकस हटाएं, जिससे कीबोर्ड छिप जाएगा
+            this.blur(); // 'this' यहाँ searchInputForKeyboard को संदर्भित करता है
+        }
+    });
+}
+
+// --- कीबोर्ड छिपाने के लिए कोड --- END ---
+
+</script>
+
+</body>
+</html>
