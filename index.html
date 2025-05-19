@@ -686,6 +686,33 @@ if (searchInputForKeyboard) {
 
 // --- कीबोर्ड छिपाने के लिए कोड --- END ---
 
+const sidebar = document.getElementById('sidebar');
+
+    let startX = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', function(e) {
+      let endX = e.changedTouches[0].clientX;
+      let diffX = endX - startX;
+
+      // Swipe right to show
+      if (startX < 50 && diffX > 50) {
+        sidebar.classList.add('show');
+      }
+
+      // Swipe left to hide
+      if (startX > 50 && diffX < -50) {
+        sidebar.classList.remove('show');
+      }
+    });
+
+    function hideSidebar() {
+      sidebar.classList.remove('show');
+  }
+  
 </script>
 
 </body>
