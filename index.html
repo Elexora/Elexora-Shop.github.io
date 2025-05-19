@@ -278,7 +278,69 @@ html {
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+/* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 24px;
+      left: -100px;
+      bottom: 28px;
+      width: 80px;
+      border-radius: 18px;
+      transition: 0.3s ease;
+      background: #1c1c3a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 1001;
+    }
 
+    .sidebar.show {
+      left: 20px;
+    }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .icon {
+      color: white;
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    /* Swipe hotspot */
+    .hotspot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      z-index: 1000;
+    }
+
+    /* Small visible line (indicator) */
+    .indicator-line {
+      position: fixed;
+      top: 50%;
+      left: 2px;
+      width: 5px;
+      height: 50px;
+      background: #1c1c3a;
+      border-radius: 3px;
+      z-index: 1000;
+      transform: translateY(-50%);
+    }
+
+    /* Hide indicator when sidebar is shown */
+    .sidebar.show ~ .indicator-line {
+      display: none;
+    }
   </style>
 
 </head>
